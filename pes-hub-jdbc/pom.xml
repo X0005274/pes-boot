@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.playtogether.pes</groupId>
         <artifactId>pes-boot</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.2</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
@@ -19,23 +19,23 @@
         <dependency>
             <groupId>com.playtogether.pes</groupId>
             <artifactId>pes-hub</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <!-- 도메인 메시지 매핑용 (LOT/WF/DURABLE) -->
         <dependency>
             <groupId>com.playtogether.pes</groupId>
             <artifactId>pes-lot-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.playtogether.pes</groupId>
             <artifactId>pes-wf-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>com.playtogether.pes</groupId>
             <artifactId>pes-durable-service</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>0.0.2</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
