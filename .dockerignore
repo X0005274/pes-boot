@@ -1,0 +1,13 @@
+target/
+**/target/
+.git/
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
+*.log
+deploy/
+*.md
+!pom.xml

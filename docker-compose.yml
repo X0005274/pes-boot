@@ -1,0 +1,28 @@
+# 앱 전용 compose. Oracle 은 외부(또는 별도 컨테이너)로 가정.
+# 사용: docker compose up -d --build
+services:
+  pes-app:
+    build: .
+    image: pes-app:0.0.1
+    container_name: pes-app
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      PES_DB_URL: ${PES_DB_URL:-jdbc:oracle:thin:@//host.docker.internal:1521/PESPDB}
+      PES_DB_USER: ${PES_DB_USER:-pes}
+      PES_DB_PASSWORD: ${PES_DB_PASSWORD:-changeme}
+      PES_FLYWAY_ENABLED: "true"
+      PES_JPA_DDL_AUTO: validate
+      # HubDB (선택)
+      PES_HUB_ENABLED: ${PES_HUB_ENABLED:-false}
+      PES_HUB_DB_URL: ${PES_HUB_DB_URL:-}
+      PES_HUB_DB_USER: ${PES_HUB_DB_USER:-}
+      PES_HUB_DB_PASSWORD: ${PES_HUB_DB_PASSWORD:-}
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
