@@ -24,14 +24,28 @@ jobs:
       - name: Package (pes-app fat jar)
         run: mvn -B -ntp -pl pes-app -am -DskipTests package
 
+      - name: Compute lowercase image name
+        id: img
+        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+
       - name: Attach jar to GitHub Release
         uses: softprops/action-gh-release@v2
         with:
           files: pes-app/target/pes-app-*.jar
+          generate_release_notes: true   # 커밋/PR 기반 변경사항 자동 생성
+          append_body: true              # 아래 고정 헤더 뒤에 자동 노트 추가
+          body: |
+            ## 컨테이너 이미지 (GHCR, public)
+            ```bash
+            docker pull ${{ steps.img.outputs.name }}:${{ github.ref_name }}   # 또는 :latest
 
-      - name: Compute lowercase image name
-        id: img
-        run: echo "name=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_OUTPUT"
+            docker run -d -p 8080:8080 \
+              -e PES_DB_URL=jdbc:oracle:thin:@//host:1521/PESPDB \
+              -e PES_DB_USER=pes -e PES_DB_PASSWORD=*** \
+              ${{ steps.img.outputs.name }}:${{ github.ref_name }}
+            ```
+            - 헬스: `GET /actuator/health` · API 문서: `/swagger-ui/index.html`
+            - 실행 jar 에셋: `pes-app-*.jar`
 
       - name: Log in to GHCR
         uses: docker/login-action@v3
