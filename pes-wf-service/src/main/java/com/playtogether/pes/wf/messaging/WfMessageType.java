@@ -19,6 +19,11 @@ public class WfMessageType implements PesMessageType {
     }
 
     @Override
+    public String requestSubject() {
+        return WfSubjects.UI_REQUEST;
+    }
+
+    @Override
     public String inboundSubject() {
         return WfSubjects.BIZ_EVENT;
     }

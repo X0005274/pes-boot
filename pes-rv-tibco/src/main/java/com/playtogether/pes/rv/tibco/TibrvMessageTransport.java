@@ -89,6 +89,26 @@ public class TibrvMessageTransport implements PesMessageTransport, TibrvMsgCallb
     }
 
     @Override
+    public String request(String subject, String payload, long timeoutMillis) {
+        if (this.transport == null) {
+            throw new IllegalStateException("RV transport 가 아직 시작되지 않았습니다");
+        }
+        try {
+            TibrvMsg request = new TibrvMsg();
+            request.setSendSubject(subject);
+            request.add(FIELD_JSON, payload);
+            TibrvMsg reply = this.transport.sendRequest(request, timeoutMillis / 1000.0);
+            if (reply == null) {
+                return null; // 타임아웃
+            }
+            Object jsonField = reply.get(FIELD_JSON);
+            return (jsonField != null) ? jsonField.toString() : new String(reply.getAsBytes());
+        } catch (TibrvException ex) {
+            throw new IllegalStateException("RV request 실패: " + subject, ex);
+        }
+    }
+
+    @Override
     public void onMsg(TibrvListener listener, TibrvMsg msg) {
         try {
             String subject = msg.getSendSubject();

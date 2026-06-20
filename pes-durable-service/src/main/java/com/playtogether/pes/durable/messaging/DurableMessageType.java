@@ -19,6 +19,11 @@ public class DurableMessageType implements PesMessageType {
     }
 
     @Override
+    public String requestSubject() {
+        return DurableSubjects.UI_REQUEST;
+    }
+
+    @Override
     public String inboundSubject() {
         return DurableSubjects.BIZ_EVENT;
     }

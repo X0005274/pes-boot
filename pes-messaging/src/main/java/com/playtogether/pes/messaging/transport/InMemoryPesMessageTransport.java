@@ -46,6 +46,16 @@ public class InMemoryPesMessageTransport implements PesMessageTransport {
         return List.copyOf(this.published);
     }
 
+    @Override
+    public String request(String subject, String payload, long timeoutMillis) {
+        // in-memory: 동일 JVM 의 구독 핸들러를 동기 호출해 reply 를 반환(2-hop 시뮬레이션)
+        PesMessageHandler handler = this.handlers.get(subject);
+        if (handler == null) {
+            throw new IllegalStateException("구독자가 없는 subject: " + subject);
+        }
+        return handler.handle(new PesInboundMessage(subject, "_INBOX.REQ", payload));
+    }
+
     /** 인바운드 수신 시뮬레이션. 등록된 핸들러를 호출하고 reply 페이로드를 반환한다. */
     public String simulateInbound(String subject, String payload) {
         PesMessageHandler handler = this.handlers.get(subject);

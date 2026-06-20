@@ -19,6 +19,11 @@ public class LotMessageType implements PesMessageType {
     }
 
     @Override
+    public String requestSubject() {
+        return LotSubjects.UI_REQUEST;
+    }
+
+    @Override
     public String inboundSubject() {
         return LotSubjects.BIZ_EVENT;
     }

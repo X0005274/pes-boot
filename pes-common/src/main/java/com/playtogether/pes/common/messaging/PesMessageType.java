@@ -12,7 +12,10 @@ public interface PesMessageType {
 
     EntityType entityType();
 
-    /** 이 도메인 메시지를 수신할 inbound subject (Biz 레이어 기준). */
+    /** UI 요청 subject (PES.UI.&lt;domain&gt;.REQUEST). PES.UI 포워더가 수신하는 subject. */
+    String requestSubject();
+
+    /** 이 도메인 메시지를 수신할 inbound subject (Biz 레이어 기준, PES.BIZ.&lt;domain&gt;.EVENT). */
     String inboundSubject();
 
     /** 처리 결과/상태 변경을 push 할 outbound 이벤트 subject (UI 레이어 기준). */

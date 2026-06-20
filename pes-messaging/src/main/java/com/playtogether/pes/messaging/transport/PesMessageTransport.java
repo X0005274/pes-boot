@@ -13,4 +13,10 @@ public interface PesMessageTransport {
 
     /** subject 로 이벤트(payload JSON)를 단방향 발행한다 (Biz → UI push). */
     void publish(String subject, String payload);
+
+    /**
+     * subject 로 Request 를 보내고 Reply 페이로드를 받는다(Request/Reply, INBOX).
+     * 포워더(UI.REQUEST → BIZ.EVENT)에서 사용. 타임아웃 시 null.
+     */
+    String request(String subject, String payload, long timeoutMillis);
 }
