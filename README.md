@@ -1,5 +1,10 @@
 # PES (Project Execution System)
 
+[![CI](https://github.com/X0005274/pes-boot/actions/workflows/ci.yml/badge.svg)](https://github.com/X0005274/pes-boot/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/X0005274/pes-boot?sort=semver)](https://github.com/X0005274/pes-boot/releases/latest)
+![Java](https://img.shields.io/badge/Java-17-blue)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.1-brightgreen)
+
 반도체 제조 MES 영역에서 **LOT 중심 이벤트**를 관리하는 시스템입니다.
 TIBCO Rendezvous 기반 메시징 위에 Spring Boot Biz 레이어를 결합해, **LOT / WF / DURABLE**
 도메인의 이벤트를 공통 **Workflow 메시지 스키마**로 통합 처리합니다.
