@@ -55,9 +55,21 @@ mvn -DskipTests package
 ```bash
 PES_DB_URL=jdbc:oracle:thin:@//host:1521/PESPDB \
 PES_DB_USER=pes PES_DB_PASSWORD=*** \
-java -jar pes-app/target/pes-app-0.0.1-SNAPSHOT.jar
+java -jar pes-app/target/pes-app-0.0.2.jar
 # 기동 시 Flyway 가 스키마 적용 → Hibernate validate
 ```
+
+### Docker (GHCR public 이미지)
+릴리즈마다 `ghcr.io/x0005274/pes-boot` 에 이미지가 게시됩니다(공개, 인증 불필요).
+```bash
+docker pull ghcr.io/x0005274/pes-boot:v0.0.2     # 또는 :latest
+
+docker run -d -p 8080:8080 \
+  -e PES_DB_URL=jdbc:oracle:thin:@//host:1521/PESPDB \
+  -e PES_DB_USER=pes -e PES_DB_PASSWORD=*** \
+  ghcr.io/x0005274/pes-boot:v0.0.2
+```
+로컬 빌드로 실행하려면 [`Dockerfile`](./Dockerfile) / [`docker-compose.yml`](./docker-compose.yml) 참조.
 
 ### 주요 환경변수
 | 변수 | 기본값 | 설명 |
