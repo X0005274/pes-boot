@@ -1,0 +1,23 @@
+# Linux systemd unit (대안). 배치: /opt/pes/app/pes-app.jar
+# 설치:
+#   sudo cp deploy/systemd/pes-app.service /etc/systemd/system/
+#   sudo cp deploy/systemd/pes.env /opt/pes/bin/pes.env   # 환경변수 파일 작성
+#   sudo systemctl daemon-reload && sudo systemctl enable --now pes-app
+[Unit]
+Description=PES (Project Execution System)
+After=network.target
+
+[Service]
+Type=simple
+User=pes
+WorkingDirectory=/opt/pes
+EnvironmentFile=/opt/pes/bin/pes.env
+ExecStart=/usr/bin/java -Xms512m -Xmx1024m -Dfile.encoding=UTF-8 \
+  -jar /opt/pes/app/pes-app.jar \
+  --spring.config.additional-location=optional:file:/opt/pes/config/
+SuccessExitStatus=143
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

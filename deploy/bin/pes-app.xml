@@ -1,0 +1,44 @@
+<!--
+  WinSW service definition for PES.
+  Usage:
+    1) Download WinSW (WinSW.NET4.exe) and copy as  pes-app.exe  next to this xml.
+    2) Edit <env> values (DB 접속 등) below.
+    3) pes-app.exe install  /  start  /  stop  /  restart  /  uninstall
+  %BASE% = directory containing pes-app.exe / this xml (e.g. C:\pes\bin)
+-->
+<service>
+    <id>pes-app</id>
+    <name>PES Application</name>
+    <description>PES (Project Execution System) - LOT/WF/DURABLE event service</description>
+
+    <executable>%JAVA_HOME%\bin\java</executable>
+    <arguments>-Xms512m -Xmx1024m -Dfile.encoding=UTF-8 -jar "%BASE%\..\app\pes-app.jar" --spring.config.additional-location=optional:file:%BASE%\..\config\</arguments>
+
+    <workingdirectory>%BASE%\..</workingdirectory>
+
+    <!-- ===== environment ===== -->
+    <env name="SPRING_PROFILES_ACTIVE" value="prod"/>
+    <env name="PES_DB_URL" value="jdbc:oracle:thin:@//db-host:1521/PESPDB"/>
+    <env name="PES_DB_USER" value="pes"/>
+    <env name="PES_DB_PASSWORD" value="changeme"/>
+    <env name="PES_FLYWAY_ENABLED" value="true"/>
+    <env name="PES_JPA_DDL_AUTO" value="validate"/>
+    <!-- HubDB (optional)
+    <env name="PES_HUB_ENABLED" value="true"/>
+    <env name="PES_HUB_DB_URL" value="jdbc:oracle:thin:@//hub-host:1521/HUBPDB"/>
+    <env name="PES_HUB_DB_USER" value="hub"/>
+    <env name="PES_HUB_DB_PASSWORD" value="changeme"/>
+    <env name="PES_HUB_SCHED_ENABLED" value="true"/>
+    -->
+
+    <!-- ===== lifecycle / logging ===== -->
+    <startmode>Automatic</startmode>
+    <onfailure action="restart" delay="10 sec"/>
+    <log mode="roll-by-size">
+        <logpath>%BASE%\..\logs</logpath>
+        <sizeThreshold>10240</sizeThreshold>
+        <keepFiles>10</keepFiles>
+    </log>
+    <!-- 종료 시 graceful shutdown 대기 -->
+    <stoptimeout>30 sec</stoptimeout>
+</service>

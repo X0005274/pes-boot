@@ -1,0 +1,29 @@
+# 외부 운영 설정 예시 (C:\pes\config\application-prod.yml).
+# 민감정보(DB 비밀번호 등)는 환경변수 사용을 권장. 여기엔 비-민감 운영 튜닝만 둔다.
+spring:
+  jpa:
+    open-in-view: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+
+logging:
+  level:
+    com.playtogether.pes: INFO
+  file:
+    name: ${PES_HOME:.}/logs/pes-app.log
+  logback:
+    rollingpolicy:
+      max-file-size: 50MB
+      max-history: 14
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      probes:
+        enabled: true
