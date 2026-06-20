@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.playtogether.pes</groupId>
+        <artifactId>pes-boot</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>pes-rv-tibco</artifactId>
+    <name>pes-rv-tibco</name>
+    <description>TIBCO Rendezvous binding for the PES inbound message transport (profile: rv-tibco)</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.playtogether.pes</groupId>
+            <artifactId>pes-messaging</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <!--
+          TIBCO Rendezvous 8.4.x 클라이언트. 상용 라이브러리로 Maven Central 에 없으므로
+          설치본의 tibrvj.jar 를 사내 레포에 배포하거나 아래처럼 system 경로로 지정해 사용한다.
+          (TIBRV_HOME 환경변수 기준 예시)
+        -->
+        <dependency>
+            <groupId>com.tibco</groupId>
+            <artifactId>tibrvj</artifactId>
+            <version>8.4.5</version>
+            <scope>system</scope>
+            <systemPath>${env.TIBRV_HOME}/lib/tibrvj.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+</project>

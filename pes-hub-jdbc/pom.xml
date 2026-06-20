@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.playtogether.pes</groupId>
+        <artifactId>pes-boot</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>pes-hub-jdbc</artifactId>
+    <name>pes-hub-jdbc</name>
+    <description>HubDB(2nd DataSource) JDBC 어댑터 → HubSource 구현</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.playtogether.pes</groupId>
+            <artifactId>pes-hub</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <!-- 도메인 메시지 매핑용 (LOT/WF/DURABLE) -->
+        <dependency>
+            <groupId>com.playtogether.pes</groupId>
+            <artifactId>pes-lot-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.playtogether.pes</groupId>
+            <artifactId>pes-wf-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.playtogether.pes</groupId>
+            <artifactId>pes-durable-service</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-jdbc</artifactId>
+        </dependency>
+        <!-- 영속 워터마크 커서(PES DB, 기본 DataSource/JPA) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <!-- HubDB(Oracle) 드라이버 -->
+        <dependency>
+            <groupId>com.oracle.database.jdbc</groupId>
+            <artifactId>ojdbc11</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+</project>

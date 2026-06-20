@@ -1,0 +1,25 @@
+spring:
+  datasource:
+    # 통합 테스트는 H2 인메모리(Oracle 호환 모드)로 대체
+    url: jdbc:h2:mem:pes;MODE=Oracle;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: ""
+    driver-class-name: org.h2.Driver
+
+  # 통합 테스트는 H2 + Hibernate create-drop 사용. Flyway(Oracle DDL)는 비활성화.
+  flyway:
+    enabled: false
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        format_sql: true
+    show-sql: true
+
+logging:
+  level:
+    com.playtogether.pes: DEBUG

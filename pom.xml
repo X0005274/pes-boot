@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.0</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>com.playtogether.pes</groupId>
+    <artifactId>pes-boot</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>pes-boot</name>
+    <description>PES (Project Execution System) - LOT/WF/DURABLE event management</description>
+
+    <properties>
+        <java.version>17</java.version>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Lombok 최신 버전 (Spring Boot BOM 의 lombok.version 을 오버라이드) -->
+        <lombok.version>1.18.46</lombok.version>
+    </properties>
+
+    <dependencies>
+        <!-- 전 모듈 공통: Lombok (compile-only annotation processor) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <optional>true</optional>
+        </dependency>
+        <!-- 전 모듈 공통: OpenAPI(Swagger) 어노테이션 (springdoc 2.8.6 정렬) -->
+        <dependency>
+            <groupId>io.swagger.core.v3</groupId>
+            <artifactId>swagger-annotations-jakarta</artifactId>
+            <version>2.2.29</version>
+            <optional>true</optional>
+        </dependency>
+    </dependencies>
+
+    <modules>
+        <module>pes-common</module>
+        <module>pes-messaging</module>
+        <module>pes-idempotency</module>
+        <module>pes-lot-service</module>
+        <module>pes-wf-service</module>
+        <module>pes-durable-service</module>
+        <module>pes-hub</module>
+        <module>pes-hub-jdbc</module>
+        <module>pes-app</module>
+    </modules>
+
+    <profiles>
+        <!-- 실제 TIBCO RV 바인딩. tibrv jar(상용) 설치 + 활성화 시에만 빌드됨: mvn -Prv-tibco -->
+        <profile>
+            <id>rv-tibco</id>
+            <modules>
+                <module>pes-rv-tibco</module>
+            </modules>
+        </profile>
+    </profiles>
+
+</project>
