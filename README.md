@@ -6,6 +6,22 @@ TIBCO Rendezvous 기반 메시징 위에 Spring Boot Biz 레이어를 결합해,
 
 > 상세 도메인 계약·메시징 규약은 [`CLAUDE.md`](./CLAUDE.md) 참조.
 
+## 관련 저장소
+
+이 저장소는 **Biz 레이어(서버)** 입니다. UI 클라이언트는 별도 저장소에 있습니다.
+
+| 저장소 | 레이어 | 설명 |
+|---|---|---|
+| **pes-boot** (이 저장소) | PES.BIZ (Java/Spring Boot) | 워크플로우 처리·조회·HubDB 적재·PES.UI 포워더 |
+| [pes-ui](https://github.com/X0005274/pes-ui) | C# UI (.NET Framework 4.8) | TIBCO RV 로 LOT/WF/DURABLE 요청 송신 |
+
+```
+[pes-ui (C# UI)] --PES.UI.*.REQUEST--> [PES.UI 포워더] --PES.BIZ.*.EVENT--> [pes-boot (Java Biz)]
+                 <----------------- RV INBOX Reply (PesProcessResult) -----------------
+```
+- 양쪽은 동일한 Workflow JSON 메시지 계약(camelCase) + RV `json` 필드 규약을 공유합니다.
+- PES.UI 포워더는 이 저장소에 포함(`pes.forwarder.enabled=true` 로 활성화).
+
 ---
 
 ## 기술 스택
