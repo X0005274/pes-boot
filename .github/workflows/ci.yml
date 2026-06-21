@@ -3,8 +3,18 @@ name: CI
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'deploy/**'
+      - '.gitignore'
+      - '.gitattributes'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '**.md'
+      - 'deploy/**'
+      - '.gitignore'
+      - '.gitattributes'
 
 jobs:
   build-test:
