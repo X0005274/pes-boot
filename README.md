@@ -198,3 +198,5 @@ TIBRV_HOME=/opt/tibco/tibrv mvn -Prv-tibco -DskipTests package
 java -Dspring.profiles.active=rv -jar pes-app/target/pes-app-0.0.1-SNAPSHOT.jar
 ```
 인바운드 `PES.BIZ.<domain>.EVENT` 수신 → 처리 → RV INBOX reply + `PES.UI.<domain>.EVENT` push.
+
+<!-- docs-only change: CI skip 실증 -->
